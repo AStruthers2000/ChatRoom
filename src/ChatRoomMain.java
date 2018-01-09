@@ -1,7 +1,8 @@
 
 public class ChatRoomMain {
 	/**
-	 * carson F klein
+	 * Carson F Klein
+	 * Andrew G Struthers
 	 * 
 	 */
 	public static void main(String[] args){
