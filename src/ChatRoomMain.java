@@ -44,13 +44,18 @@ public class ChatRoomMain {
 		BufferedReader recv = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		PrintWriter send = new PrintWriter(conn.getOutputStream(), true);
 		
-		send.println("Hello from host");
-		
-		String msg = recv.readLine();
-		System.out.print(msg);
-		
-		
-		
+		while(true){
+			String msg = recv.readLine();
+			System.out.print(msg);
+			
+			
+			
+			
+			
+			if(msg.equalsIgnoreCase("end_host")){
+				break;
+			}
+		}	
 		
 		send.close();
 		recv.close();
