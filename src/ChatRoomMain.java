@@ -6,6 +6,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ChatRoomMain {
@@ -52,13 +54,18 @@ public class ChatRoomMain {
 		BufferedReader recv = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		PrintWriter send = new PrintWriter(conn.getOutputStream(), true);
 		
+		List<String> ALL_MSG = new ArrayList<String>();
 		while(true){
 			String msg = recv.readLine();
-			System.out.print(msg);
+			ALL_MSG.add(msg);
 			
-			
-			
-			
+					
+			if(msg.equalsIgnoreCase("read_all_msg")){
+				for(String user_msg : ALL_MSG){
+					send.println(user_msg);
+				}
+				send.println("END");
+			}
 			
 			if(msg.equalsIgnoreCase("end_host")){
 				break;
