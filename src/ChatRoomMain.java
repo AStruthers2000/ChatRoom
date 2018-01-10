@@ -27,7 +27,7 @@ public class ChatRoomMain {
 		BufferedReader recv = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		PrintWriter send = new PrintWriter(s.getOutputStream(), true);
 		
-		
+		List<String> ALL_MSG = new ArrayList<String>();
 		while(true){
 			System.out.println("Type your message here: ");
 			String user_input = input.nextLine();
@@ -35,7 +35,13 @@ public class ChatRoomMain {
 			
 			
 			
-			
+			if(user_input.equalsIgnoreCase("read_all_msg")){
+				String host_msg = recv.readLine();
+				while(!host_msg.equalsIgnoreCase("END")){
+					ALL_MSG.add(host_msg);
+				}
+				System.out.println(ALL_MSG);
+			}
 			
 			if(user_input.equalsIgnoreCase("end_host")){
 				break;
