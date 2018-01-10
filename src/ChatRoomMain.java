@@ -21,7 +21,19 @@ public class ChatRoomMain {
 		System.out.print("Enter host ip address: ");
 		String host_ip = input.nextLine();
 		Socket s = new Socket(host_ip ,12345);
-		System.out.println(s.getLocalAddress());
+		
+		BufferedReader recv = new BufferedReader(new InputStreamReader(s.getInputStream()));
+		PrintWriter send = new PrintWriter(s.getOutputStream());
+		
+		String msg = recv.readLine();
+		System.out.println(msg);
+		
+		send.println("Oof");
+		
+		
+		
+		send.close();
+		recv.close();
 		s.close();
 	}
 	
