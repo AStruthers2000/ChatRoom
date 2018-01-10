@@ -72,7 +72,6 @@ public class ChatRoomMain {
 				}
 				send.println("END");
 			}
-			
 			if(msg.equalsIgnoreCase("end_host")){
 				break;
 			}
