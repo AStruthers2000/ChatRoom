@@ -30,7 +30,7 @@ public class ChatRoomMain {
 		s.close();
 	}
 	
-	public static void main(String[] args) throws UnknownHostException{
+	public static void main(String[] args) throws IOException{
 		ip = InetAddress.getLocalHost().getHostAddress();
 		System.out.println(ip);
 		/*
@@ -43,5 +43,19 @@ public class ChatRoomMain {
 		 * 	client();
 		 * }
 		 */
+		
+		//msg = input("Enter your name: ")
+		
+		String user_input = input.nextLine();
+		if(user_input.equalsIgnoreCase("host")){
+			host();
+		}
+		else{
+			client();
+		}
+		
+		
+		
+		
 	}
 }
