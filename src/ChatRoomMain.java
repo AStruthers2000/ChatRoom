@@ -25,13 +25,21 @@ public class ChatRoomMain {
 		BufferedReader recv = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		PrintWriter send = new PrintWriter(s.getOutputStream(), true);
 		
-		String msg = recv.readLine();
-		System.out.println(msg);
 		
-		send.println("Oof");
-		
-		
-		
+		while(true){
+			System.out.println("Type your message here: ");
+			String user_input = input.nextLine();
+			send.println(user_input);
+			
+			
+			
+			
+			
+			if(user_input.equalsIgnoreCase("end_host")){
+				break;
+			}
+		}
+			
 		send.close();
 		recv.close();
 		s.close();
