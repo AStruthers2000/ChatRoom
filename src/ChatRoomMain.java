@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -25,14 +28,28 @@ public class ChatRoomMain {
 	public static void host() throws IOException{
 		ServerSocket s = new ServerSocket(12345);
 		Socket conn = s.accept();
-		System.out.println(conn.getInetAddress());
+		
+		BufferedReader recv = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		PrintWriter send = new PrintWriter(conn.getOutputStream());
+		
+		send.println("Hello from host");
+		
+		String msg = recv.readLine();
+		System.out.print(msg);
+		
+		
+		
+		
+		send.close();
+		recv.close();
 		conn.close();
 		s.close();
 	}
 	
 	public static void main(String[] args) throws IOException{
 		ip = InetAddress.getLocalHost().getHostAddress();
-		System.out.println(ip);
+		System.out.println("My computer IP: " + ip);
+		
 		/*
 		 * TODO we need to either call client() to connect, or host() to open
 		 * we need to call host() first, theoretically it should run on two different computers
@@ -44,18 +61,13 @@ public class ChatRoomMain {
 		 * }
 		 */
 		
-		//msg = input("Enter your name: ")
-		
+		System.out.print("Enter 'host' for host, 'client' for client");
 		String user_input = input.nextLine();
 		if(user_input.equalsIgnoreCase("host")){
 			host();
 		}
 		else{
 			client();
-		}
-		
-		
-		
-		
+		}		
 	}
 }
