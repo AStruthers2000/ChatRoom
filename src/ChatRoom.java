@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,10 +15,10 @@ public class ChatRoom {
      * Andrew G Struthers
      *
      */
-    static String ip;
-    static Scanner input = new Scanner(System.in);
 
-    public static void client() throws UnknownHostException, IOException{
+    private static Scanner input = new Scanner(System.in);
+
+    private static void client() throws IOException{
         System.out.print("Enter host ip address: ");
         String host_ip = input.nextLine();
         Socket s = new Socket(host_ip ,12345);
@@ -27,7 +26,7 @@ public class ChatRoom {
         BufferedReader recv = new BufferedReader(new InputStreamReader(s.getInputStream()));
         PrintWriter send = new PrintWriter(s.getOutputStream(), true);
 
-        List<String> ALL_MSG = new ArrayList<String>();
+        List<String> ALL_MSG = new ArrayList<>();
         while(true){
             System.out.println("Type your message here: ");
             String user_input = input.nextLine();
@@ -53,14 +52,14 @@ public class ChatRoom {
         s.close();
     }
 
-    public static void host() throws IOException{
+    private static void host() throws IOException{
         ServerSocket s = new ServerSocket(12345);
         Socket conn = s.accept();
 
         BufferedReader recv = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         PrintWriter send = new PrintWriter(conn.getOutputStream(), true);
 
-        List<String> ALL_MSG = new ArrayList<String>();
+        List<String> ALL_MSG = new ArrayList<>();
         while(true){
             String msg = recv.readLine();
             ALL_MSG.add(msg);
@@ -84,7 +83,7 @@ public class ChatRoom {
     }
 
     public static void main(String[] args) throws IOException{
-        ip = InetAddress.getLocalHost().getHostAddress();
+        String ip = InetAddress.getLocalHost().getHostAddress();
         System.out.println("My computer IP: " + ip);
 
         /*
