@@ -39,6 +39,8 @@ public class ChatRoomMain {
 				String host_msg = recv.readLine();
 				while(!host_msg.equalsIgnoreCase("END")){
 					ALL_MSG.add(host_msg);
+					host_msg = recv.readLine();
+					System.out.println(host_msg);
 				}
 				System.out.println(ALL_MSG);
 			}
