@@ -5,9 +5,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ChatRoom {
     /**
@@ -17,6 +15,15 @@ public class ChatRoom {
      */
 
     private static Scanner input = new Scanner(System.in);
+    private static volatile Map<String, String> ALL_COMMANDS = updateCommands();
+
+    private static Map<String, String> updateCommands(){
+        Map<String, String> commands = new HashMap<>();
+        commands.put("help", "Displays this help message");
+        commands.put("read_all_msg", "output all messages sent to host");
+        commands.put("end_host", "kill the host and disconnect all clients (avoid using because it will crash all clients except for the one that enters command");
+        return commands;
+    }
 
     private static void client() throws IOException{
         System.out.print("Enter host ip address: ");
@@ -26,6 +33,10 @@ public class ChatRoom {
         BufferedReader recv = new BufferedReader(new InputStreamReader(s.getInputStream()));
         PrintWriter send = new PrintWriter(s.getOutputStream(), true);
 
+        for(String definition : ALL_COMMANDS.keySet()){
+            System.out.println("Type: <" + definition + "> to " + ALL_COMMANDS.get(definition));
+        }
+
         List<String> ALL_MSG = new ArrayList<>();
         while(true){
             System.out.println("Type your message here: ");
@@ -33,7 +44,11 @@ public class ChatRoom {
             send.println(user_input);
 
 
-
+            if(user_input.equalsIgnoreCase("help")){
+                for(String definition : ALL_COMMANDS.keySet()){
+                    System.out.println("Type: <" + definition + "> to " + ALL_COMMANDS.get(definition));
+                }
+            }
             if(user_input.equalsIgnoreCase("read_all_msg")){
                 String host_msg = recv.readLine();
                 while(!host_msg.equalsIgnoreCase("END")){
