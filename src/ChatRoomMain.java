@@ -36,7 +36,12 @@ public class ChatRoomMain {
 		/*
 		 * TODO we need to either call client() to connect, or host() to open
 		 * we need to call host() first, theoretically it should run on two different computers
-		 * 
+		 * if(this computer is host){
+		 * 	host();
+		 * }
+		 * else{
+		 * 	client();
+		 * }
 		 */
 	}
 }
