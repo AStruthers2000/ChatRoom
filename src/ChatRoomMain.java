@@ -23,7 +23,7 @@ public class ChatRoomMain {
 		Socket s = new Socket(host_ip ,12345);
 		
 		BufferedReader recv = new BufferedReader(new InputStreamReader(s.getInputStream()));
-		PrintWriter send = new PrintWriter(s.getOutputStream());
+		PrintWriter send = new PrintWriter(s.getOutputStream(), true);
 		
 		String msg = recv.readLine();
 		System.out.println(msg);
@@ -42,7 +42,7 @@ public class ChatRoomMain {
 		Socket conn = s.accept();
 		
 		BufferedReader recv = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		PrintWriter send = new PrintWriter(conn.getOutputStream());
+		PrintWriter send = new PrintWriter(conn.getOutputStream(), true);
 		
 		send.println("Hello from host");
 		
@@ -73,7 +73,7 @@ public class ChatRoomMain {
 		 * }
 		 */
 		
-		System.out.print("Enter 'host' for host, 'client' for client");
+		System.out.print("Enter 'host' for host, 'client' for client: ");
 		String user_input = input.nextLine();
 		if(user_input.equalsIgnoreCase("host")){
 			host();
