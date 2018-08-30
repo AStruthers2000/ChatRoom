@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 //818 by 547 for main chatroom
 //518 by 347 for login screen
 namespace ChatApp
