@@ -1,1 +1,1 @@
-Chatroom server code
+Chatroom client code
