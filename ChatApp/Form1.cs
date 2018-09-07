@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -21,8 +22,8 @@ namespace ChatApp
 
         TcpClient clientSocket = new TcpClient();
 
-        string hostIP = "";
-        int port = 21;
+        string hostIP = "104.36.47.213";
+        int port = 12345;
         string serverPassword = "";
         string username = "";
 
@@ -52,37 +53,6 @@ namespace ChatApp
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            //hostIP = IPAddrTextbox.Text;
-            string output = string.Empty;
-            string error = string.Empty;
-
-            ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd", "/c curl http://ipinfo.io/ip");
-            processStartInfo.RedirectStandardOutput = true;
-            processStartInfo.RedirectStandardError = true;
-            processStartInfo.WindowStyle = ProcessWindowStyle.Normal;
-            processStartInfo.UseShellExecute = false;
-
-            Process process = Process.Start(processStartInfo);
-            using (StreamReader streamReader = process.StandardOutput)
-            {
-                output = streamReader.ReadToEnd();
-            }
-
-            using (StreamReader streamReader = process.StandardError)
-            {
-                error = streamReader.ReadToEnd();
-            }
-
-            Console.WriteLine("The following output was detected:");
-            Console.WriteLine(output);
-            hostIP = output;
-
-            if (!string.IsNullOrEmpty(error))
-            {
-                Console.WriteLine("The following error was detected:");
-                Console.WriteLine(error);
-            }
-
             serverPassword = ServerPasswordTextbox.Text;
             username = UsernameTextbox.Text;
             if (hostIP.Equals("") || serverPassword.Equals("") || username.Equals(""))
