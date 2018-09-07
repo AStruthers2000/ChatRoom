@@ -22,6 +22,7 @@ namespace ChatApp
         TcpClient clientSocket = new TcpClient();
 
         string hostIP = "";
+        int port = 21;
         string serverPassword = "";
         string username = "";
 
@@ -51,7 +52,37 @@ namespace ChatApp
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            hostIP = IPAddrTextbox.Text;
+            //hostIP = IPAddrTextbox.Text;
+            string output = string.Empty;
+            string error = string.Empty;
+
+            ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd", "/c curl http://ipinfo.io/ip");
+            processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.RedirectStandardError = true;
+            processStartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            processStartInfo.UseShellExecute = false;
+
+            Process process = Process.Start(processStartInfo);
+            using (StreamReader streamReader = process.StandardOutput)
+            {
+                output = streamReader.ReadToEnd();
+            }
+
+            using (StreamReader streamReader = process.StandardError)
+            {
+                error = streamReader.ReadToEnd();
+            }
+
+            Console.WriteLine("The following output was detected:");
+            Console.WriteLine(output);
+            hostIP = output;
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                Console.WriteLine("The following error was detected:");
+                Console.WriteLine(error);
+            }
+
             serverPassword = ServerPasswordTextbox.Text;
             username = UsernameTextbox.Text;
             if (hostIP.Equals("") || serverPassword.Equals("") || username.Equals(""))
@@ -69,7 +100,7 @@ namespace ChatApp
                 try
                 {
                     this.Update();
-                    clientSocket.Connect(hostIP, 12345);
+                    clientSocket.Connect(hostIP, port);
                     new Thread(new ThreadStart(lookForMessages)).Start();
                     msg("Client Connected to Server...");
                     send(String.Concat(username, " ", serverPassword));
